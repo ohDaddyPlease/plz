@@ -33,3 +33,9 @@ There may be same commands like:
 And args like: "... on port 8080" and "... on port default"
 
 Need to parse more suitable **command** and **args**.
+
+# Reserved command
+
+- plz validate cfg - validate syntax ofthe main config file
+- plz init - initialize cfg
+- plz where cfg - show full path to cfg
