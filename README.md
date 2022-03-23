@@ -3,6 +3,7 @@ Declarative helper
 
 Toml|Yaml draft:
 
+```
 name: "command name"
 description: "command description"
 type: "command type"
@@ -14,3 +15,4 @@ command: "command to exec"
 dependency:
   - dependency type (run after|before)
   - dependency command name
+```
