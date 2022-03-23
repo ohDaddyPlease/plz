@@ -28,6 +28,6 @@ plz start_local_server   on_port      8080
 
 # Reserved command
 
-- plz validate cfg - validate syntax ofthe main config file
+- plz validate_cfg - validate syntax ofthe main config file
 - plz init - initialize cfg
-- plz where cfg - show full path to cfg
+- plz where_cfg - show full path to cfg
