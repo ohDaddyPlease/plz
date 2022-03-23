@@ -22,17 +22,9 @@ dependency:
 
 # Example:
 ```
-plz start local server   on port      8080
+plz start_local_server   on_port      8080
     [  command name  ] [first arg] [second arg]  
 ```
-
-# Parsing
-There may be same commands like:
-"start server" and "start server local"
-
-And args like: "... on port 8080" and "... on port default"
-
-Need to parse more suitable **command** and **args**.
 
 # Reserved command
 
