@@ -1,7 +1,7 @@
 # plz
 Declarative helper
 
-Toml|Yaml draft:
+# Toml|Yaml draft:
 
 ```
 name: "command name"
@@ -20,8 +20,16 @@ dependency:
   - dependency command name
 ```
 
-Example:
+# Example:
 ```
 plz start local server   on port      8080
     [  command name  ] [first arg] [second arg]  
 ```
+
+# Parsing
+There may be same commands like:
+"start server" and "start server local"
+
+And args like: "... on port 8080" and "... on port default"
+
+Need to parse more suitable **command** and **args**.
