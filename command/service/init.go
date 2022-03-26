@@ -11,16 +11,19 @@ import (
 	"path/filepath"
 )
 
-func Init() model.Command {
+func Init(extras []interface{}) model.Command {
 	c := model.Command{
-		Name: "init",
+		Command: "init",
 		Use: `
 Run 'plz init'' without args`,
 		Help: `
 Initialize configuration files`,
 		Func: func() {
+			configContentCommands := make([]model.YamlCommand, 1)
+			configContentCommands[0].Args = make([]model.YamlArg, 1)
+
 			configContent, err := yaml.Marshal(model.ConfigurationFile{
-				Commands: make([]model.YamlCommand, 1),
+				Commands: configContentCommands,
 			})
 			if err != nil {
 				return

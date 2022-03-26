@@ -6,9 +6,9 @@ import (
 	"github.com/ohDaddyPlease/plz/model"
 )
 
-func Version() model.Command {
+func Version(extras []interface{}) model.Command {
 	c := model.Command{
-		Name: "version",
+		Command: "version",
 		Use: `
 Just call 'plz version' to display version without args`,
 		Help: `

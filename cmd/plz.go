@@ -8,42 +8,53 @@ import (
 	"os"
 )
 
-var Commands map[string]model.Command
+var Commands model.CommandType
 
 func init() {
-	Commands = make(map[string]model.Command)
-	Register(
-		service.Version,
-		service.Help,
-		service.Init,
-	)
+	Commands = make(model.CommandType)
+
+	RegisterWithExtras(service.Version, nil)
+	RegisterWithExtras(service.Help, nil)
+	RegisterWithExtras(service.Init, nil)
+	RegisterWithExtras(service.Commands, []interface{}{Commands})
+
 }
 
 func main() {
 	cmd := parser.ParseArgs()
 	c, ok := Commands[cmd.Command]
 	if !ok {
-		fmt.Printf("no command %s\n", cmd.Command)
+		if c.Command.Command != "" {
+			fmt.Printf("No command %s .", cmd.Command)
+		} else {
+			fmt.Print("Please, specify command. ")
+		}
+		fmt.Println("The list of the possible commands:")
+		for _, pc := range Commands {
+			fmt.Printf("* plz %s\n", pc.Command.Command)
+		}
 		os.Exit(0)
 	}
 	if len(cmd.Args) > 0 {
 		switch cmd.Args[0] {
 		case "--use", "-u":
-			fmt.Println(c.Use)
+			fmt.Println(c.Command.Use)
 			os.Exit(0)
 		case "--help", "-h":
-			fmt.Println(c.Help)
+			fmt.Println(c.Command.Help)
 			os.Exit(0)
 		}
 	}
 
-	c.Func()
+	c.Command.Func()
 	os.Exit(0)
 }
 
-func Register(cfs ...func() model.Command) {
-	for _, cf := range cfs {
-		c := cf()
-		Commands[c.Name] = c
+func RegisterWithExtras(cf func(extras []interface{}) model.Command, extras []interface{}) {
+	c := cf(extras)
+	Commands[c.Command] = model.CommandFields{
+		Command: c,
+		Extras:  extras,
 	}
+
 }
