@@ -9,11 +9,12 @@ type Command struct {
 }
 
 type YamlCommand struct {
-	Command string    `yaml:"command"`
-	Exec    string    `yaml:"exec"`
-	Args    []YamlArg `yaml:"args"`
-	Use     string    `yaml:"use"`
-	Help    string    `yaml:"help"`
+	Command  string        `yaml:"command"`
+	Exec     string        `yaml:"exec"`
+	ExecArgs []ExecYamlArg `yaml:"exec_args"`
+	UserArgs []UserYamlArg `yaml:"user_args"`
+	Use      string        `yaml:"use"`
+	Help     string        `yaml:"help"`
 }
 
 type Arg struct {
@@ -22,7 +23,13 @@ type Arg struct {
 	Func     func()
 }
 
-type YamlArg struct {
+type ExecYamlArg struct {
 	Name  string `yaml:"name"`
 	Value string `yaml:"value"`
+}
+
+type UserYamlArg struct {
+	Name     string `yaml:"name"`
+	Value    string `yaml:"value"`
+	Required bool   `yaml:"required"`
 }

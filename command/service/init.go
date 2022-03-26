@@ -18,7 +18,8 @@ func Init(extras []interface{}) model.Command {
 		Help:    `Initialize configuration files`,
 		Func: func() {
 			configContentCommands := make([]model.YamlCommand, 1)
-			configContentCommands[0].Args = make([]model.YamlArg, 1)
+			configContentCommands[0].ExecArgs = make([]model.ExecYamlArg, 1)
+			configContentCommands[0].UserArgs = make([]model.UserYamlArg, 1)
 
 			configContent, err := yaml.Marshal(model.ConfigurationFile{
 				Commands: configContentCommands,

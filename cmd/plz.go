@@ -29,9 +29,9 @@ func main() {
 	}
 
 	for _, c := range ConfigFileCommands.Commands {
-		var args = make([]model.Arg, len(c.Args))
+		var args = make([]model.Arg, len(c.ExecArgs))
 		var cmdArgs []string
-		for _, a := range c.Args {
+		for _, a := range c.ExecArgs {
 			if a.Name != "" {
 				args = append(args, model.Arg{Name: os.ExpandEnv(a.Name)})
 				cmdArgs = append(cmdArgs, os.ExpandEnv(a.Name))
