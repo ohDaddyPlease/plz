@@ -14,10 +14,8 @@ import (
 func Init(extras []interface{}) model.Command {
 	c := model.Command{
 		Command: "init",
-		Use: `
-Run 'plz init'' without args`,
-		Help: `
-Initialize configuration files`,
+		Use:     `Run 'plz init'' without args`,
+		Help:    `Initialize configuration files`,
 		Func: func() {
 			configContentCommands := make([]model.YamlCommand, 1)
 			configContentCommands[0].Args = make([]model.YamlArg, 1)

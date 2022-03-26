@@ -8,10 +8,8 @@ import (
 func Commands(extras []interface{}) model.Command {
 	c := model.Command{
 		Command: "commands",
-		Use: `
-plz commands`,
-		Help: `
-Display all possible commands`,
+		Use:     `plz commands`,
+		Help:    `Display all possible commands`,
 		Func: func() {
 			fmt.Println("Possible commands:")
 			extra := extras[0]

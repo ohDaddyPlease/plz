@@ -37,11 +37,11 @@ func main() {
 	}
 	if len(cmd.Args) > 0 {
 		switch cmd.Args[0] {
-		case "--use", "-u":
-			fmt.Println(c.Command.Use)
+		case "--usage", "-u":
+			fmt.Println("[usage]", c.Command.Use)
 			os.Exit(0)
 		case "--help", "-h":
-			fmt.Println(c.Command.Help)
+			fmt.Println("[help]", c.Command.Help)
 			os.Exit(0)
 		}
 	}
