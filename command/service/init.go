@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/ohDaddyPlease/plz/model"
+	"github.com/ohDaddyPlease/plz/parser"
 	"gopkg.in/yaml.v3"
 	"log"
 	"os"
-	"path/filepath"
 )
 
 func Init(extras []interface{}) model.Command {
@@ -26,13 +26,7 @@ func Init(extras []interface{}) model.Command {
 			if err != nil {
 				return
 			}
-			userHomeDir, err := os.UserHomeDir()
-			configFileName := ".plz"
-			configFilePath := filepath.Join(userHomeDir, configFileName)
-			if err != nil {
-				log.Fatal(err)
-			}
-			_, err = os.Stat(configFilePath)
+			_, err = os.Stat(parser.ConfigFilePath)
 			var needRecreate bool
 			if errors.Is(err, os.ErrExist) || err == nil {
 				fmt.Println("Configuration file is exists. Do you want to recreate it? [y/n]")
@@ -53,7 +47,7 @@ func Init(extras []interface{}) model.Command {
 			}
 
 			if needRecreate {
-				config, err := os.Create(configFilePath)
+				config, err := os.Create(parser.ConfigFilePath)
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -68,7 +62,7 @@ func Init(extras []interface{}) model.Command {
 					log.Fatal(err)
 				}
 
-				fmt.Printf("File '%s' has been created and stores in '%s'\n", configFileName, configFilePath)
+				fmt.Printf("File '%s' has been created and stores in '%s'\n", parser.ConfigFileName, parser.ConfigFilePath)
 			} else {
 				fmt.Println("Configuration file has not been modified")
 			}

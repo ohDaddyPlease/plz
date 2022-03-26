@@ -5,7 +5,9 @@ import (
 	"github.com/ohDaddyPlease/plz/command/service"
 	"github.com/ohDaddyPlease/plz/model"
 	"github.com/ohDaddyPlease/plz/parser"
+	"log"
 	"os"
+	"os/exec"
 )
 
 var Commands model.CommandType
@@ -21,6 +23,43 @@ func init() {
 }
 
 func main() {
+	ConfigFileCommands, err := parser.ParseConfigFile()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, c := range ConfigFileCommands.Commands {
+		var args = make([]model.Arg, len(c.Args))
+		var cmdArgs []string
+		for _, a := range c.Args {
+			args = append(args, model.Arg{Name: a.Name}, model.Arg{Name: a.Value})
+			if a.Name != "" {
+				cmdArgs = append(cmdArgs, a.Name)
+			}
+			if a.Value != "" {
+				cmdArgs = append(cmdArgs, a.Value)
+			}
+
+		}
+
+		RegisterWithExtras(func(_ []interface{}) model.Command {
+			return model.Command{
+				Command: c.Command,
+				Use:     c.Use,
+				Help:    c.Help,
+				Func: func() {
+					cmdCommand := exec.Command(c.Exec, cmdArgs...)
+					output, err := cmdCommand.Output()
+					if err != nil {
+						log.Fatal(err)
+					}
+					fmt.Println(string(output))
+				},
+				Args: args,
+			}
+		}, nil)
+	}
+
 	cmd := parser.ParseArgs()
 	c, ok := Commands[cmd.Command]
 	if !ok {
