@@ -29,6 +29,9 @@ func main() {
 	}
 
 	for _, c := range ConfigFileCommands.Commands {
+		if !parser.IsValidCommand(c) {
+			continue
+		}
 		var args = make([]model.Arg, len(c.ExecArgs))
 		var cmdArgs []string
 		for _, a := range c.ExecArgs {
