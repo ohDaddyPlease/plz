@@ -32,12 +32,12 @@ func main() {
 		var args = make([]model.Arg, len(c.Args))
 		var cmdArgs []string
 		for _, a := range c.Args {
-			args = append(args, model.Arg{Name: a.Name}, model.Arg{Name: a.Value})
+			args = append(args, model.Arg{Name: os.ExpandEnv(a.Name)}, model.Arg{Name: os.ExpandEnv(a.Value)})
 			if a.Name != "" {
-				cmdArgs = append(cmdArgs, a.Name)
+				cmdArgs = append(cmdArgs, os.ExpandEnv(a.Name))
 			}
 			if a.Value != "" {
-				cmdArgs = append(cmdArgs, a.Value)
+				cmdArgs = append(cmdArgs, os.ExpandEnv(a.Value))
 			}
 
 		}
@@ -49,6 +49,7 @@ func main() {
 				Help:    c.Help,
 				Func: func() {
 					cmdCommand := exec.Command(c.Exec, cmdArgs...)
+
 					output, err := cmdCommand.Output()
 					if err != nil {
 						log.Fatal(err)
