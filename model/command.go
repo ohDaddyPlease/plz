@@ -10,10 +10,10 @@ type Command struct {
 
 type YamlCommand struct {
 	Command string    `yaml:"command"`
+	Exec    string    `yaml:"exec"`
 	Args    []YamlArg `yaml:"args"`
 	Use     string    `yaml:"use"`
 	Help    string    `yaml:"help"`
-	Exec    string    `yaml:"exec"`
 }
 
 type Arg struct {
