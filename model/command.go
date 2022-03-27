@@ -24,12 +24,12 @@ type Arg struct {
 }
 
 type ExecYamlArg struct {
-	Name  string `yaml:"name"`
+	//Name  string `yaml:"name"`
 	Value string `yaml:"value"`
 }
 
 type UserYamlArg struct {
-	Name     string `yaml:"name"`
+	//Name     string `yaml:"name"`
 	Value    string `yaml:"value"`
 	Required bool   `yaml:"required"`
 }
