@@ -32,9 +32,9 @@ func main() {
 		if !parser.IsValidCommand(c) {
 			continue
 		}
-		var args = make([]model.Arg, len(c.ExecArgs))
+		var args = make([]model.Arg, len(c.UserArgs))
 		var cmdArgs []string
-		for _, a := range c.ExecArgs {
+		for _, a := range c.UserArgs {
 			/*
 				if a.Name != "" {
 					args = append(args, model.Arg{Name: os.ExpandEnv(a.Name)})
